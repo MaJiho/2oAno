@@ -3,11 +3,9 @@
 
 int main()
 {
-	int n;
-	printf("Size of array:"); scanf("%d",&n);
-	char str[n];
-	printf("String:"); scanf("%s", str);
-	printf("%d",count_words(str));
+	char str[100];
+	printf("String:"); scanf("%[^\n]%*c", str);
+	printf("%d\n",count_words(str));
 	return 0;
 }
 
