@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "string_to_int.h"
+#include "count_words.h"
 
 int main()
 {
@@ -7,7 +7,7 @@ int main()
 	printf("Size of array:"); scanf("%d",&n);
 	char str[n];
 	printf("String:"); scanf("%s", str);
-	printf("%d", string_to_int(str));
-	
+	printf("%d",count_words(str));
 	return 0;
 }
+
