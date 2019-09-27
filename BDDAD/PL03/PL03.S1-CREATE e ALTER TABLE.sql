@@ -43,6 +43,15 @@ CREATE TABLE automoveis_clientes (
     CONSTRAINT pk_automoveis_clientes_matricula_id_cliente   PRIMARY KEY (matricula, id_cliente)
 );
 
+-- ## tabela Revisões ##
+CREATE TABLE revisoes (
+    matricula           CHAR(8),
+    data_hora_marcacao  TIMESTAMP,
+    efetuada            CHAR        DEFAULT('N')
+                        CONSTRAINT ck_revisoes_efetuada CHECK(efetuada='S' OR efetuada='N'),
+    CONSTRAINT pk_revisoes_matricula_data_hora_marcacao PRIMARY KEY(matricula, data_hora_marcacao)
+);
+
 -- ** alterar tabelas para definição de chaves estrangeiras **
 -- ## tabela AutomoveisClientes ##
 ALTER TABLE automoveis_clientes ADD CONSTRAINT fk_automoveis_clientes_matricula   FOREIGN KEY (matricula) REFERENCES Automoveis (matricula);

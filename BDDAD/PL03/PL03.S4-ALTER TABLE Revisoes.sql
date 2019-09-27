@@ -22,7 +22,7 @@ FROM revisoes
 ORDER BY matricula;
 
 --6)    Eliminar o registo adicionado anteriormente.
-DELETE FROM revisoes WHERE id_revisao=/* a completar */;
+DELETE FROM revisoes WHERE id_revisao=7;
 
 --7)	Resolver o problema indicado na alínea 5, adicionando uma restrição que garanta combinações únicas dos campos matricula 
 --      e data_hora_marcacao;
@@ -43,10 +43,13 @@ FROM revisoes
 ORDER BY matricula;
 
 --11)	Resolver o problema verificado, começando por eliminar os dois registos adicionados;
-/* a completar */
+
+DELETE FROM revisoes WHERE id_revisao=10;
+DELETE FROM revisoes WHERE id_revisao=9;
 
 --12)	Alterar novamente a tabela de modo a impedir o valor NULL nos campos matricula e data_hora_marcacao;
 ALTER TABLE revisoes MODIFY matricula CONSTRAINT nn_revisoes_matricula NOT NULL;
-/* a completar * / 
+ALTER TABLE revisoes MODIFY data_hora_marcacao CONSTRAINT nn_revisoes_data_hora_marcacao NOT NULL;
+
 
 --13)	Repetir o passo 9 para verificar a resolução do problema com o NULL na chave primária natural.
