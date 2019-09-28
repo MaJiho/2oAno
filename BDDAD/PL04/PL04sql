@@ -1,0 +1,158 @@
+-- 4.
+-- 1)
+
+-- 2)
+SELECT titulo
+FROM cd
+UNION
+SELECT titulo
+FROM musicas;
+
+-- 3)
+SELECT titulo, LENGTH(titulo)
+FROM cd
+UNION
+SELECT titulo, LENGTH(titulo)
+FROM musicas
+ORDER BY 2 DESC;
+
+-- 4)
+SELECT titulo
+FROM cd
+INTERSECT
+SELECT titulo
+FROM musicas;
+
+-- 5)
+SELECT duracao
+FROM musicas
+WHERE interprete LIKE 'Pink Floyd'
+INTERSECT
+SELECT duracao
+FROM musicas
+WHERE interprete NOT LIKE 'Pink Floyd';
+
+-- 6)
+SELECT duracao
+FROM musicas
+WHERE interprete LIKE 'Pink Floyd'
+INTERSECT
+SELECT duracao
+FROM musicas
+WHERE interprete NOT LIKE 'Pink Floyd'
+ORDER BY 1 DESC;
+
+-- 7)
+SELECT id_editora
+FROM editoras
+MINUS
+SELECT id_editora
+FROM cd;
+
+-- 5.
+-- 1)
+SELECT COUNT(cod_cd)
+FROM cd
+GROUP BY local_compra;
+
+-- 2)
+SELECT DISTINCT COUNT(cod_cd)
+FROM cd
+GROUP BY local_compra;
+
+-- 3)
+SELECT local_compra, COUNT(cod_cd)
+FROM cd
+GROUP BY local_compra;
+
+-- 4)
+SELECT local_compra, COUNT(cod_cd)
+FROM cd
+GROUP BY local_compra
+ORDER BY 2;
+
+-- 5)
+SELECT local_compra, COUNT(cod_cd)
+FROM cd
+WHERE local_compra IS NOT NULL
+GROUP BY local_compra
+ORDER BY 2;
+
+-- 6)
+SELECT local_compra, COUNT(cod_cd), SUM(valor_pago) AS TOTAL, MAX(valor_pago) AS MAIOR
+FROM cd
+WHERE local_compra IS NOT NULL
+GROUP BY local_compra
+ORDER BY 2;
+
+-- 7)
+SELECT cod_cd, interprete, COUNT(cod_cd) AS QUANTIDADE
+FROM musicas
+GROUP BY interprete, cod_cd
+ORDER BY 1;
+
+-- 8)
+SELECT COUNT(cod_cd) AS QUANTIDADE
+FROM cd
+GROUP BY local_compra
+HAVING COUNT(cod_cd) > 2;
+
+-- 9)
+SELECT local_compra, AVG(valor_pago) AS TOTAL
+FROM cd
+GROUP BY local_compra
+HAVING AVG(valor_pago) < 10;
+
+-- 10)
+SELECT local_compra, SUM(valor_pago) AS TOTAL
+FROM cd
+GROUP BY local_compra
+HAVING COUNT(cod_cd) > 2;
+
+-- 11)
+SELECT cod_cd, interprete
+FROM musicas
+GROUP BY interprete, cod_cd
+HAVING COUNT(interprete) = 1
+ORDER BY 1, 2;
+
+-- 12)
+SELECT interprete
+FROM musicas
+GROUP BY interprete
+HAVING COUNT(interprete) = 1
+    AND UPPER(interprete) LIKE 'E%' OR UPPER(interprete) LIKE 'L%'
+ORDER BY 1;
+
+-- 13)
+SELECT cd.titulo, COUNT(musicas.nr_musica) AS QUANTIDADE
+FROM cd JOIN musicas
+ON cd.cod_cd = musicas.cod_cd
+GROUP BY cd.cod_cd, cd.titulo;
+
+-- 14)
+SELECT cd.cod_cd, cd.titulo, COUNT(musicas.nr_musica) AS QUANTIDADE
+FROM cd JOIN musicas
+ON cd.cod_cd = musicas.cod_cd
+GROUP BY cd.titulo, cd.cod_cd;
+
+-- 15)
+SELECT cd.cod_cd, cd.titulo, COUNT(musicas.nr_musica) AS QUANTIDADE
+FROM cd JOIN musicas
+ON cd.cod_cd = musicas.cod_cd
+WHERE musicas.duracao > 5
+GROUP BY  cd.cod_cd, cd.titulo;
+
+-- 16)
+SELECT cd.cod_cd, cd.titulo, COUNT(musicas.nr_musica) AS QUANTIDADE
+FROM cd JOIN musicas
+ON cd.cod_cd = musicas.cod_cd
+GROUP BY  cd.cod_cd, cd.titulo
+HAVING COUNT(musicas.nr_musica) < 6;
+
+-- 17)
+SELECT cd.cod_cd, cd.titulo, COUNT(musicas.nr_musica) AS QUANTIDADE
+FROM cd JOIN musicas
+ON cd.cod_cd = musicas.cod_cd
+GROUP BY cd.cod_cd, cd.titulo
+HAVING AVG(musicas.duracao) > 4;
